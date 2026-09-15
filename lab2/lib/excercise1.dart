@@ -3,8 +3,8 @@
 void main() {
   // Khai báo các biến với kiểu dữ liệu cơ bản.
   String studentName = 'Nguyen Ha Vy';
-  int age = 20;
-  double height = 1.62;
+  int age = 21;
+  double height = 1.67;
   bool isStudent = true;
 
   // In giá trị bằng string interpolation.
