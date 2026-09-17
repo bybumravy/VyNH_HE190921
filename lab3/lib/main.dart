@@ -1,30 +1,13 @@
-import 'exercise1/product_repository.dart';
-import 'exercise1/product.dart';
+import 'exercise2/user_repository.dart';
 
 Future<void> main() async {
-  print('===== EXERCISE 1 =====');
+  print('===== EXERCISE 2 =====');
 
-  final repository = ProductRepository();
+  final repository = UserRepository();
 
-  repository.liveAdded().listen((product) {
-    print('New product: $product');
-  });
+  final users = await repository.fetchUsers();
 
-  final products = await repository.getAll();
-
-  print('All products:');
-
-  for (final product in products) {
-    print(product);
+  for (final user in users) {
+    print(user);
   }
-
-  repository.addProduct(
-    Product(
-      id: 3,
-      name: 'Keyboard',
-      price: 80,
-    ),
-  );
-
-  repository.dispose();
 }
