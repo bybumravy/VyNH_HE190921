@@ -12,7 +12,6 @@ void main() {
   }
 
   int day = 2;
-
   switch (day) {
     case 1:
       print('Monday');
@@ -44,26 +43,20 @@ void main() {
     'Flutter',
     'Mobile Development',
   ];
-
-  print('\nUsing for loop:');
-
-  for (int index = 0; index < courses.length; index++) {
-    print('Course ${index + 1}: ${courses[index]}');
+  print("");
+  for (int i = 0; i < courses.length; i++) {
+    print('Course ${i + 1}: ${courses[i]}');
   }
-
-  print('\nUsing for-in loop:');
-
-  for (String course in courses) {
-    print(course);
+  for (String c in courses) {
+    print(c);
   }
-
-  print('\nUsing forEach:');
-  courses.forEach((course) {
-    print(course);
+  print("***For each****");
+  courses.forEach((c) {
+    print(c);
   });
 
   int total = addNumbers(10, 20);
-  print('\n10 + 20 = $total');
+  print('10 + 20 = $total');
   print('Square of 5 = ${square(5)}');
 }
 

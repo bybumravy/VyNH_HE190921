@@ -12,11 +12,6 @@ void main() {
   print('Subtraction result: $subtraction');
   bool isEqual = numbers[0] == 10;
   print('First number equals 10: $isEqual');
-  bool isValid = numbers.isNotEmpty && numbers.length >= 3;
-  print('List is valid: $isValid');
-  String listType = numbers.length >= 4 ? 'Long list' : 'Short list';
-  print('List type: $listType');
-
 
   Set<String> subjects = {'Dart', 'Flutter', 'Dart'};
   print('Original set: $subjects');
@@ -26,14 +21,14 @@ void main() {
 
   Map<String, dynamic> student = {
     'name': 'Nguyen Ha Vy',
-    'age': 20,
+    'age': 21,
     'score': 8.5,
   };
 
   print('Student name: ${student['name']}');
   print('Student score: ${student['score']}');
 
-  student['major'] = 'Information Technology';
+  student['major'] = 'Software Engineer';
   student.remove('age');
 
   print('Updated map: $student');
