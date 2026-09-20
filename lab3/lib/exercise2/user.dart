@@ -2,17 +2,11 @@ class User {
   final String name;
   final String email;
 
-  User({
-    required this.name,
-    required this.email,
-  });
+  User(this.name, this.email);
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      name: json['name'],
-      email: json['email'],
-    );
-  }
+  User.fromJson(Map<String, dynamic> json)
+      : name = json["name"],
+        email = json["email"];
 
   @override
   String toString() {
