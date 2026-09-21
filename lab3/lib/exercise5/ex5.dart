@@ -11,6 +11,9 @@ class Settings {
 void main() {
   Settings a = Settings();
   Settings b = Settings();
+  Settings c = Settings._internal();
   print(identical(a, b));
+  print(identical(a, c));
+
 }
 
