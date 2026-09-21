@@ -4,12 +4,17 @@ import 'package:lab3/exercise1/product_repository.dart';
 void main() async {
   ProductRepository repository = ProductRepository();
 
-  // Listen for newly added products
+  repository.addProduct(
+    Product(6, "Headphone1", 80),
+  );
+
   repository.liveAdded().listen((product) {
     print("New product: $product");
   });
 
-  // Get all existing products
+  repository.addProduct(
+    Product(7, "Headphone12", 80),
+  );
   List<Product> products = await repository.getAll();
 
   print("All products:");
@@ -17,16 +22,11 @@ void main() async {
   for (Product product in products) {
     print(product);
   }
-
-  // Add a new product
   repository.addProduct(
     Product(4, "Monitor", 500),
   );
-
   repository.addProduct(
     Product(5, "Headphone", 80),
   );
-
-  // Close the stream controller
   repository.dispose();
 }
