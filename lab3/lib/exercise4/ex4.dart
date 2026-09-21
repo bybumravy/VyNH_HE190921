@@ -1,6 +1,6 @@
 import 'dart:async';
 
-Future<void> runExercise4() async {
+void runExercise4() {
   Stream<int> numbers =
   Stream.fromIterable([1, 2, 3, 4, 5]);
 
@@ -12,11 +12,11 @@ Future<void> runExercise4() async {
         (number) => number % 2 == 0,
   );
 
-  await result.forEach((number) {
+  result.listen((number) {
     print(number);
   });
 }
 
-void main() async {
-  await runExercise4();
+void main()  {
+  runExercise4();
 }
