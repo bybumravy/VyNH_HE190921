@@ -34,26 +34,27 @@ class _DebugFixesDemoState extends State<DebugFixesDemo> {
       appBar: AppBar(
         title: const Text('Exercise 5 – Common UI Fixes'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // --- Fix 1: ListView inside Column dùng Expanded ---
             const Text(
-              'Correct ListView inside Column using\nExpanded',
+              'Fix 1: ListView in Column using Expanded',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
-
-            // dùng Expanded để fix lỗi unbounded height
-            Expanded(
+            const SizedBox(height: 8),
+            // Dùng SizedBox với chiều cao cố định thay vì Expanded
+            // vì bên ngoài là SingleChildScrollView (không có bounded height)
+            SizedBox(
+              height: 250,
               child: ListView.builder(
                 itemCount: _movies.length,
                 itemBuilder: (ctx, i) {
                   return ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: const Icon(Icons.movie, color: Colors.black54),
-                    title: Text(_movies[i], style: const TextStyle(fontSize: 16)),
+                    leading: const Icon(Icons.movie),
+                    title: Text(_movies[i]),
                   );
                 },
               ),
@@ -61,6 +62,12 @@ class _DebugFixesDemoState extends State<DebugFixesDemo> {
 
             const Divider(),
 
+            // --- Fix 3: setState() để cập nhật state ---
+            const Text(
+              'Fix 3: setState() to update UI',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -68,6 +75,7 @@ class _DebugFixesDemoState extends State<DebugFixesDemo> {
                   onPressed: _addCount,
                   child: Text('Count: $_counter'),
                 ),
+                // --- Fix 4: DatePicker gọi từ widget tree hợp lệ ---
                 ElevatedButton(
                   onPressed: _pickDate,
                   child: Text(

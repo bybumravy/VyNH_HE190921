@@ -25,45 +25,23 @@ class LayoutBasicsDemo extends StatelessWidget {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
               ),
             ),
           ),
-          // Expanded để tránh lỗi unbounded height
+          const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: movies.length,
               itemBuilder: (ctx, i) {
                 final m = movies[i];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Card(
-                    color: const Color(0xFFF2F0F7),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                return Card(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Text(m['letter']!),
                     ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.indigo.shade100,
-                        child: Text(
-                          m['letter']!,
-                          style: TextStyle(
-                            color: Colors.indigo.shade900,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        m['title']!,
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                      subtitle: const Text(
-                        'Sample description',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                    ),
+                    title: Text(m['title']!),
+                    subtitle: const Text('Sample description'),
                   ),
                 );
               },

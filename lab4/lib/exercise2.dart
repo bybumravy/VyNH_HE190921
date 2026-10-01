@@ -47,7 +47,6 @@ class _InputControlsDemoState extends State<InputControlsDemo> {
               value: _sliderVal,
               min: 0,
               max: 100,
-              activeColor: Colors.indigo.shade400,
               onChanged: (val) => setState(() => _sliderVal = val),
             ),
             Text('Current value: ${_sliderVal.round()}'),
@@ -59,10 +58,8 @@ class _InputControlsDemoState extends State<InputControlsDemo> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SwitchListTile(
-              contentPadding: EdgeInsets.zero,
               title: const Text('Is movie active?'),
               value: _isActive,
-              activeColor: Colors.indigo.shade400,
               onChanged: (val) => setState(() => _isActive = val),
             ),
             const SizedBox(height: 16),
@@ -72,49 +69,37 @@ class _InputControlsDemoState extends State<InputControlsDemo> {
               'Genre (RadioListTile)',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            RadioListTile<Genre>(
-              contentPadding: EdgeInsets.zero,
-              title: const Text('Action'),
-              value: Genre.action,
+            RadioGroup<Genre>(
               groupValue: _genre,
-              onChanged: (val) => setState(() => _genre = val!),
-            ),
-            RadioListTile<Genre>(
-              contentPadding: EdgeInsets.zero,
-              title: const Text('Comedy'),
-              value: Genre.comedy,
-              groupValue: _genre,
-              onChanged: (val) => setState(() => _genre = val!),
+              onChanged: (val) => setState(() => _genre = val ?? Genre.none),
+              child: Column(
+                children: const [
+                  RadioListTile<Genre>(
+                    title: Text('Action'),
+                    value: Genre.action,
+                  ),
+                  RadioListTile<Genre>(
+                    title: Text('Comedy'),
+                    value: Genre.comedy,
+                  ),
+                ],
+              ),
             ),
             Text('Selected genre: ${_genre.name}'),
             const SizedBox(height: 32),
 
             // Date picker button
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF2F0F7),
-                  foregroundColor: Colors.indigo.shade600,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                ),
-                onPressed: _pickDate,
-                child: const Text('Open Date Picker', style: TextStyle(fontSize: 16)),
-              ),
+            ElevatedButton(
+              onPressed: _pickDate,
+              child: const Text('Open Date Picker'),
             ),
-            if (_pickedDate != null) ...[
-              const SizedBox(height: 12),
-              Center(
+            if (_pickedDate != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 12),
                 child: Text(
                   'Selected Date: ${_pickedDate!.day}/${_pickedDate!.month}/${_pickedDate!.year}',
-                  style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-            ],
           ],
         ),
       ),
