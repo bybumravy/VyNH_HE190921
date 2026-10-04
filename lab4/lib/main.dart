@@ -33,22 +33,17 @@ class _Lab4AppState extends State<Lab4App> {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: _themeMode,
-      home: MainMenuScreen(
-        onThemeChanged: _toggleTheme,
-        currentThemeMode: _themeMode,
-      ),
+      home: MainMenuScreen(onThemeChanged: _toggleTheme),
     );
   }
 }
 
 class MainMenuScreen extends StatelessWidget {
   final Function(bool) onThemeChanged;
-  final ThemeMode currentThemeMode;
 
   const MainMenuScreen({
     super.key,
     required this.onThemeChanged,
-    required this.currentThemeMode,
   });
 
   @override
@@ -66,10 +61,7 @@ class MainMenuScreen extends StatelessWidget {
           _menuItem(
             context,
             'Exercise 4 – App Structure & Theme',
-            AppStructureDemo(
-              onThemeChanged: onThemeChanged,
-              isDark: currentThemeMode == ThemeMode.dark,
-            ),
+            AppStructureDemo(onThemeChanged: onThemeChanged),
           ),
           _menuItem(context, 'Exercise 5 – Common UI Fixes', const DebugFixesDemo()),
         ],

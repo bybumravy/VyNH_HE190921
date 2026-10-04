@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppStructureDemo extends StatelessWidget {
+class AppStructureDemo extends StatefulWidget {
   final Function(bool) onThemeChanged;
 
   const AppStructureDemo({
@@ -9,31 +9,43 @@ class AppStructureDemo extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  State<AppStructureDemo> createState() => _AppStructureDemoState();
+}
 
+class _AppStructureDemoState extends State<AppStructureDemo> {
+  bool _isDark = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _isDark = Theme.of(context).brightness == Brightness.dark;
+  }
+
+  void _toggleTheme(bool value) {
+    setState(() => _isDark = value);
+    widget.onThemeChanged(value);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Exercise 4 – App Structure'),
         actions: [
           Row(
             children: [
-              const Text('Dark', style: TextStyle(fontSize: 14)),
-              Switch(value: isDark, onChanged: onThemeChanged),
+              const Text('Dark'),
+              Switch(value: _isDark, onChanged: _toggleTheme),
             ],
           ),
-          const SizedBox(width: 8),
         ],
       ),
       body: const Center(
-        child: Text(
-          'This is a simple screen with theme toggle.',
-          style: TextStyle(fontSize: 16),
-        ),
+        child: Text('This is a simple screen with theme toggle.'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => onThemeChanged(!isDark),
-        child: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+        onPressed: () => _toggleTheme(!_isDark),
+        child: Icon(_isDark ? Icons.light_mode : Icons.dark_mode),
       ),
     );
   }
