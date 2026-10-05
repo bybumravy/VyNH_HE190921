@@ -36,7 +36,6 @@ class HomeScreen extends StatelessWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(16.0),
               onTap: () {
-                // Navigate to Movie Detail Screen, passing the selected movie object
                 Navigator.push(
                   context,
                   MaterialPageRoute(

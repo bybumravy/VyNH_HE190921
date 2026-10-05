@@ -12,6 +12,7 @@ class MovieDetailScreen extends StatefulWidget {
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isFavorite = false;
+  bool _isRated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        const Color(0xD9000000), // Black with ~85% opacity
+                        const Color(0xD9000000),
                       ],
                       stops: const [0.4, 1.0],
                     ),
@@ -132,57 +133,56 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             const SizedBox(height: 12),
 
             // 4. Action buttons (Favorite / Rate / Share)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildActionButton(
-                    icon: _isFavorite ? Icons.favorite : Icons.favorite_border,
-                    label: 'Favorite',
-                    iconColor: _isFavorite ? Colors.red : Colors.grey.shade800,
-                    onTap: () {
-                      setState(() {
-                        _isFavorite = !_isFavorite;
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            _isFavorite
-                                ? 'Added "${movie.title}" to favorites'
-                                : 'Removed from favorites',
-                          ),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildActionButton(
-                    icon: Icons.star_border,
-                    label: 'Rate',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Rating for ${movie.title}: ${movie.rating}/10'),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildActionButton(
-                    icon: Icons.share,
-                    label: 'Share',
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Sharing "${movie.title}"'),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: _isFavorite ? Colors.red : Colors.black87,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isFavorite = !_isFavorite;
+                        });
+                      },
+                    ),
+                    const Text('Favorite', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                // Nút Rate (bấm vào để sáng/tắt ngôi sao vàng)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        _isRated ? Icons.star : Icons.star_border,
+                        color: _isRated ? Colors.amber : Colors.black87,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isRated = !_isRated;
+                        });
+                      },
+                    ),
+                    const Text('Rate', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+                // Nút Share
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.share, color: Colors.black87),
+                      onPressed: () {},
+                    ),
+                    const Text('Share', style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+              ],
             ),
 
             const SizedBox(height: 8),
@@ -250,36 +250,4 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _buildActionButton({
-    required IconData icon,
-    required String label,
-    Color? iconColor,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 24,
-              color: iconColor ?? Colors.grey.shade800,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade800,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
